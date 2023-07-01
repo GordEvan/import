@@ -1,0 +1,25 @@
+import json
+
+def send_confirmation_signal():
+    global signal1
+    if signal1 is not None:
+        # Здесь вы можете выполнить необходимую логику для объединения сигналов
+        combined_signal = signal1 + " confirmed"
+        
+        # Здесь отправляем подтвержденный сигнал на третий веб-хук
+        webhook_url = 'https://third-webhook.com'  # Замените на URL третьего веб-хука
+        
+        coin = "BTC"  # Замените на конкретное значение монеты
+        
+        payload = {
+            "name": "WebhookConfirm",
+            "secret": "l18axdbief",
+            "side": "buy",
+            "symbol": f"{coin}USDT"
+        }
+        
+        response = requests.post(webhook_url, json=payload)
+        if response.status_code == 200:
+            print('Подтвержденный сигнал успешно отправлен на третий веб-хук.')
+        else:
+            print('Ошибка при отправке подтвержденного сигнала на третий веб-хук.')
